@@ -2,6 +2,7 @@
 {
 	import adobe.utils.ProductManager;
 	import com.novabox.DummyTeam.DummyType;
+	import com.novabox.TrioDeChoc.TrioDeChocType;
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.events.Event;
@@ -53,9 +54,13 @@
 		public static const DUMMY_TEAM2:BotTeam = new BotTeam(	"Dummy 2",
 																0x00FF00,
 																new Array(DummyType.DummyBotType));
+																
+		public static const TRIODECHOC_TEAM:BotTeam = new BotTeam(	"TrioDeChoc",
+																0xDDAA22,
+																new Array(TrioDeChocType.TrioDeChocBotType));
 
 		
-		public static const ALL_TEAMS:Array = new Array(DUMMY_TEAM1, DUMMY_TEAM2); 
+		public static const ALL_TEAMS:Array = new Array(DUMMY_TEAM1, DUMMY_TEAM2, TRIODECHOC_TEAM); 
 																
 		private var agents:Array;
 
