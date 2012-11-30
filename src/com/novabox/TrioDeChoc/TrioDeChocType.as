@@ -10,10 +10,10 @@ package com.novabox.TrioDeChoc
 		
 		public static const TrioDeChocBotType:AgentType = new AgentType(TrioDeChocBot, 1);
 		
-		public function TrioDeChocType() 
+		/*public function TrioDeChocType() 
 		{
 			
-		}
+		}*/
 		
 	}
 

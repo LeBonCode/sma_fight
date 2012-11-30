@@ -15,12 +15,19 @@ package com.novabox.TrioDeChoc
 	 */
 	public class TrioDeChocBot extends Bot
 	{
+		
+		
 		protected var updateTime:Number = 0;
 		
 		public function TrioDeChocBot(_type:AgentType) 
 		{
 			super(_type);
 			updateTime = 0;
+		}
+		
+		public function GetColor() : int
+		{
+			return color;
 		}
 		
 		override public function Update() : void
@@ -45,7 +52,84 @@ package com.novabox.TrioDeChoc
 		{
 			var collidedAgent:Agent = _event.GetAgent();
 			
+			/*if (collidedAgent.GetType() == AgentType.AGENT_RESOURCE)
+			{
+				if (!HasResource())
+				{
+					(collidedAgent as Resource).DecreaseLife();
+					SetResource(true);
+				}
+			}
+			
+			if (collidedAgent.GetType() == AgentType.AGENT_BOT) 
+			{
+				if (!HasResource())
+				{
+					StealResource((collidedAgent as Bot));
+					trace ("vol");
+					SetResource(true);
+				}
+				ChangeDirection();
+			}*/
+			
+			if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME)
+			{
+				// si c'est un nid ennemi 
+				if ((collidedAgent as BotHome).GetTeamId() != "TrioDeChoc" )
+				{
+					//trace((collidedAgent as BotHome).GetTeamId());
+					if (!HasResource())
+					{
+						(collidedAgent as BotHome).TakeResource();
+						SetResource(false);
+					}
+				}
+			}
+			
+			
+			
+			/*if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME)
+			{
+				if (HasResource())
+				{
+					(collidedAgent as BotHome).AddResource();
+					SetResource(false);
+				}
+			}
+			
 			if (collidedAgent.GetType() == AgentType.AGENT_RESOURCE)
+			{
+				if (!HasResource())
+				{
+					(collidedAgent as Resource).DecreaseLife();
+					SetResource(true);
+				}
+			}
+			else if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME)
+			{
+				if (HasResource())
+				{
+					(collidedAgent as BotHome).AddResource();
+					SetResource(false);
+				}
+			}else if (collidedAgent.GetType() == AgentType.AGENT_BOT) 
+			{
+				if (!HasResource())
+				{
+					(collidedAgent as Agent).;
+					SetResource(true);
+				}
+				else
+				{
+					(collidedAgent as Resource).IncreaseLife();
+					SetResource(false);			
+				}
+				ChangeDirection();
+			}
+			
+			
+			//defaut
+			/*if (collidedAgent.GetType() == AgentType.AGENT_RESOURCE)
 			{
 				if (!HasResource())
 				{
@@ -66,7 +150,7 @@ package com.novabox.TrioDeChoc
 					(collidedAgent as BotHome).AddResource();
 					SetResource(false);
 				}
-			}
+			}*/
 		}
 	}
 

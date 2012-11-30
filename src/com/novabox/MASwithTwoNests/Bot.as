@@ -29,7 +29,7 @@
 		protected var perceptionRadius:Number;
 		
 		protected var teamId:String;
-		private var color:int;
+		protected var color:int;
 		
 		private var hasResource:Boolean;
 				
