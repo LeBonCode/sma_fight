@@ -13,13 +13,12 @@ package com.novabox.TrioDeChoc
 	 * ...
 	 * @author ...
 	 */
-	public class TrioDeChocBot extends Bot
+	public class BotVoleur extends Bot
 	{
-		
 		
 		protected var updateTime:Number = 0;
 		
-		public function TrioDeChocBot(_type:AgentType) 
+		public function BotVoleur(_type:AgentType) 
 		{
 			super(_type);
 			updateTime = 0;
