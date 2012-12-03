@@ -59,7 +59,8 @@
 																0xDDAA22,
 																new Array(
 																	TrioDeChocType.BOT_GENERIQUE,
-																	TrioDeChocType.BOT_VOLEUR
+																	TrioDeChocType.BOT_VOLEUR_NID,
+																	TrioDeChocType.BOT_VOLEUR_AGENT
 																));
 
 		
