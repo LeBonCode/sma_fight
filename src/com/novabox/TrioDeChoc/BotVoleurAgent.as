@@ -64,7 +64,7 @@ package com.novabox.TrioDeChoc
 					ChangeDirection();
 				}	
 			} 
-			
+
 			//si je rencontre mon nid je dépose mes ressources si j'en ai 
 			if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME)
 			{

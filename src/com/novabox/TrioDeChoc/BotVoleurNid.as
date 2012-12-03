@@ -73,10 +73,10 @@ package com.novabox.TrioDeChoc
 			
 			if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME)
 			{
-				// si c'est un nid ennemi 
+				// si c'est un nid ennemi ...
 				if ((collidedAgent as BotHome).GetTeamId() != "TrioDeChoc" )
 				{
-					trace((collidedAgent as BotHome).GetTeamId());
+					//... et qu'on ne transporte pas de ressource alors on vole le nid ennemi
 					if (!HasResource())
 					{
 						(collidedAgent as BotHome).TakeResource();
@@ -90,8 +90,6 @@ package com.novabox.TrioDeChoc
 					}
 				}
 			}
-			
-			
 			
 			/*if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME)
 			{
