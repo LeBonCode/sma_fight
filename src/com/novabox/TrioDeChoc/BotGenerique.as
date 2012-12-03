@@ -53,15 +53,15 @@ package com.novabox.TrioDeChoc
 			var collidedAgent:Agent = _event.GetAgent();
 			
 			//comportement donné par le prof
-			// si c'est une ressource, je la récolte selon ma disponibilité et je change de direction
+			// si c'est une ressource... 
 			if (collidedAgent.GetType() == AgentType.AGENT_RESOURCE)
 			{
-				if (!HasResource())
+				if (!HasResource()) // si je transporte pas de ressources alors je récolte la ressource
 				{
 					(collidedAgent as Resource).DecreaseLife();
 					SetResource(true);
 				}
-				else
+				else // sinon si j'en transporte alors je la dépose sur cette ressource pour former un tas plus gros
 				{
 					(collidedAgent as Resource).IncreaseLife();
 					SetResource(false);			
