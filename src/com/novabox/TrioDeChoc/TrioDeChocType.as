@@ -8,9 +8,10 @@ package com.novabox.TrioDeChoc
 	public class TrioDeChocType 
 	{
 		
-		public static const BOT_GENERIQUE:AgentType = new AgentType(BotGenerique, 0.4);
-		public static const BOT_VOLEUR_NID:AgentType = new AgentType(BotVoleurNid, 0.3);
-		public static const BOT_VOLEUR_AGENT:AgentType = new AgentType(BotVoleurAgent, 0.3);
+		public static const BOT_STUPIDE:AgentType = new AgentType(BotStupide, 0);
+		public static const BOT_VOLEUR_NID:AgentType = new AgentType(BotVoleurNid, 0);
+		public static const BOT_VOLEUR_AGENT:AgentType = new AgentType(BotVoleurAgent, 0);
+		public static const BOT_TEST:AgentType = new AgentType(BotTest, 1);
 		
 		/*public function TrioDeChocType() 
 		{
