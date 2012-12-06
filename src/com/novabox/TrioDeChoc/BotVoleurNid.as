@@ -13,38 +13,12 @@ package com.novabox.TrioDeChoc
 	 * ...
 	 * @author ...
 	 */
-	public class BotVoleurNid extends Bot
+	public class BotVoleurNid extends SuperBot
 	{
-		
-		protected var updateTime:Number = 0;
 		
 		public function BotVoleurNid(_type:AgentType) 
 		{
 			super(_type);
-			updateTime = 0;
-		}
-		
-		public function GetColor() : int
-		{
-			return color;
-		}
-		
-		override public function Update() : void
-		{
-			var elapsedTime:Number = TimeManager.timeManager.GetFrameDeltaTime();
-			
-			updateTime += elapsedTime;
-				
-			if (updateTime >=  directionChangeDelay)
-			{
-				ChangeDirection();
-				updateTime = 0;
-			}
-			
-			
-			 targetPoint.x = x + direction.x * speed * elapsedTime / 1000 ;
-			 targetPoint.y = y + direction.y * speed * elapsedTime / 1000;
-					
 		}
 		
 		override public function onAgentCollide(_event:AgentCollideEvent) : void

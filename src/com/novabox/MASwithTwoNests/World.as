@@ -58,9 +58,10 @@
 		public static const TRIODECHOC_TEAM:BotTeam = new BotTeam(	"TrioDeChoc",
 																0xDDAA22,
 																new Array(
-																	TrioDeChocType.BOT_GENERIQUE,
+																	TrioDeChocType.BOT_STUPIDE,
 																	TrioDeChocType.BOT_VOLEUR_NID,
-																	TrioDeChocType.BOT_VOLEUR_AGENT
+																	TrioDeChocType.BOT_VOLEUR_AGENT,
+																	TrioDeChocType.BOT_TEST
 																));
 
 		
