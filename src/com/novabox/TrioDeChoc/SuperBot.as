@@ -16,6 +16,28 @@ package com.novabox.TrioDeChoc
 	public class SuperBot extends Bot
 	{	
 		protected var updateTime:Number = 0;
+		protected var pointNidHome:Point;
+		protected var pointNidEnnemi:Point;
+		
+		public function getPointNidHome() : Point
+		{
+			return pointNidHome
+		}
+		
+		public function setPointNidHome(_point:Point) : void
+		{
+			pointNidHome = _point;
+		}
+		
+		public function getPointNidEnnemi() : Point
+		{
+			return pointNidEnnemi
+		}
+		
+		public function setPointNidEnnemi(_point:Point) : void
+		{
+			pointNidEnnemi = _point;
+		}
 		
 		public function SuperBot(_type:AgentType) 
 		{
@@ -36,14 +58,27 @@ package com.novabox.TrioDeChoc
 				
 			if (updateTime >=  directionChangeDelay)
 			{
-				ChangeDirection();
+				//ChangeDirection();
 				updateTime = 0;
 			}
 			
 			
 			 targetPoint.x = x + direction.x * speed * elapsedTime / 1000 ;
 			 targetPoint.y = y + direction.y * speed * elapsedTime / 1000;
-					
+			
+			if (targetPoint.y<0) {
+				ChangeDirection();
+			}
+			if (targetPoint.y >600) {
+				ChangeDirection();
+			}
+			if (targetPoint.x<0) {
+				ChangeDirection();
+			}
+			if (targetPoint.x>650) {
+				ChangeDirection();
+			}
+
 		}
 		
 		override public function onAgentCollide(_event:AgentCollideEvent) : void
