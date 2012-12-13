@@ -10,6 +10,10 @@ package com.novabox.TrioDeChoc
 	import flash.events.Event;
 	import flash.geom.Point;
 	
+	/* étrangement les bots suiveur de ressources et suiveur de nidHome ne servent à rien. 
+	Les bots récolteurs connaissent la position exacte du nidHome et de la ressource visée
+	en permance malgré leurs positions qui changent en permance */
+	
 	public class BotSuiveurNidHome extends SuperBot
 	{
 		

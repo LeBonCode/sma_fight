@@ -42,8 +42,8 @@ package com.novabox.TrioDeChoc
 					nidHome = (collidedAgent as BotHome);
 					//trace("point nid home " + nidHome.GetTargetPoint());
 				}else {
-					pointNidEnnemi = (collidedAgent as BotHome).GetTargetPoint();
-					//trace("point nid ennemi " + pointNidEnnemi);
+					nidEnnemi = (collidedAgent as BotHome);
+					//trace("point nid ennemi " + nidEnnemi.GetTargetPoint());
 				}
 			}
 		}

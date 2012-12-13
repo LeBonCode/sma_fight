@@ -17,7 +17,7 @@ package com.novabox.TrioDeChoc
 	{	
 		protected var updateTime:Number = 0;
 		static protected var nidHome:BotHome;
-		static protected var pointNidEnnemi:Point;
+		static protected var nidEnnemi:BotHome;
 		static protected var uneResource:Resource;
 		
 		/*public var botSuiveurResource:Bot;

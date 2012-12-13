@@ -83,7 +83,7 @@ package com.novabox.TrioDeChoc
 				if ((collidedAgent as BotHome).GetTeamId() != "TrioDeChoc" ) {
 					//... et qu'on ne transporte pas de ressource alors on vole le nid ennemi
 					//setPointNidEnnemi((collidedAgent as BotHome).GetTargetPoint());
-					pointNidEnnemi = (collidedAgent as BotHome).GetTargetPoint();
+					nidEnnemi = (collidedAgent as BotHome);
 					if (!HasResource())
 					{
 						(collidedAgent as BotHome).TakeResource();
@@ -104,10 +104,10 @@ package com.novabox.TrioDeChoc
 						(collidedAgent as BotHome).AddResource();
 						SetResource(false);
 					}
-					if(pointNidEnnemi != null){
+					if(nidEnnemi != null){
 					//if (getPointNidEnnemi() != null) {
 						//moveAt(getPointNidEnnemi());
-						moveAt(pointNidEnnemi);
+						moveAt(nidEnnemi.GetTargetPoint());
 					}else {
 						ChangeDirection();
 					}
