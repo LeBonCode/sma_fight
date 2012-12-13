@@ -23,42 +23,48 @@ package com.novabox.TrioDeChoc
 		{
 			var collidedAgent:Agent = _event.GetAgent();
 			
+			/*
+			 * RECOLTE DES RESSOURCES
+			 */ 
 			if (!HasResource() && uneResource != null) {
 				moveAt(uneResource.GetTargetPoint());
 				if (moveAt(uneResource.GetTargetPoint())) {
-					if (uneResource.GetLife() > 0) { //évite un bug sinon les bots continu de vider une ressource nulle.
+					if (uneResource.GetLife() > 0) { 
+						//trace("vie uneRessource "+uneResource.GetLife());
 						uneResource.DecreaseLife();
 						SetResource(true);
-						trace ("j'ai pris une resource");
+						//trace ("j'ai pris une resource");
 					}
 				}
 			}
 			
+			
+			/*
+			 * RETOUR AU NID POUR DEPOSER LES RESSOURCES
+			 */ 
 			if (HasResource() && nidHome != null) {
 				moveAt(nidHome.GetTargetPoint());
 				if (moveAt(nidHome.GetTargetPoint())) {
 					nidHome.AddResource();
 					SetResource(false);
-					trace("je suis arrivé au nid, je dépose mes ressources");
+					//trace("je suis arrivé au nid, je dépose mes ressources");
 				}
 			}
 			
-			
-			
-			/*if (uneResource != null) {
-				moveAt(uneResource.GetTargetPoint());
-				if (!HasResource()) // si je transporte pas de ressources alors je récolte la ressource
-				{
-					(collidedAgent as Resource).DecreaseLife();
-					SetResource(true);
-					if (pointNidHome != null) { //et si je connais les coordonnees de mon nid je m'y rend
-						moveAt(pointNidHome);
-					}else {
-						ChangeDirection();
+			/*
+			 * VOL DES RESSOURCES A UN NID ENNEMI 
+			 */ 
+			if (!HasResource() && uneResource != null && uneResource.GetLife() <= 0) {
+				//trace ("jsui vide, et la ressource visée est vide " + uneResource.GetLife());
+				moveAt(nidEnnemi.GetTargetPoint());
+				if (moveAt(nidEnnemi.GetTargetPoint())) {
+					if (nidEnnemi.HasResource()) {
+						nidEnnemi.TakeResource();
+						SetResource(true);
+						//trace("je vol des ressources à l'ennemi");
 					}
 				}
-			}*/
-			
+			}
 			
 		}
 		

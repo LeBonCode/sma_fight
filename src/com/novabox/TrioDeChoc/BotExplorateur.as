@@ -7,6 +7,7 @@ package com.novabox.TrioDeChoc
 	import com.novabox.MASwithTwoNests.BotHome;
 	import com.novabox.MASwithTwoNests.Resource;
 	import com.novabox.MASwithTwoNests.TimeManager;
+	import com.novabox.MASwithTwoNests.World;
 	import flash.events.Event;
 	import flash.geom.Point;
 	
@@ -43,6 +44,7 @@ package com.novabox.TrioDeChoc
 					//trace("point nid home " + nidHome.GetTargetPoint());
 				}else {
 					nidEnnemi = (collidedAgent as BotHome);
+					//nidEnnemi = World.teams
 					//trace("point nid ennemi " + nidEnnemi.GetTargetPoint());
 				}
 			}
