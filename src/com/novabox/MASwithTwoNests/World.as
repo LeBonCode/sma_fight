@@ -61,7 +61,10 @@
 																	TrioDeChocType.BOT_STUPIDE,
 																	TrioDeChocType.BOT_VOLEUR_NID,
 																	TrioDeChocType.BOT_VOLEUR_AGENT,
-																	TrioDeChocType.BOT_TEST
+																	TrioDeChocType.BOT_TEST,
+																	TrioDeChocType.BOT_SUIVEUR_RESOURCE,
+																	TrioDeChocType.BOT_EXPLORATEUR,
+																	TrioDeChocType.BOT_RECOLTEUR
 																));
 
 		

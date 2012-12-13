@@ -16,77 +16,162 @@ package com.novabox.TrioDeChoc
 	public class BotTest extends SuperBot
 	{
 		
-		//public var pointNidHome:Point;
-		//public var pointNidEnnemi:Point;
-		
 		public function BotTest(_type:AgentType) 
 		{
 			super(_type);
 		}
 		
+		override public function Update() : void
+		{
+			var elapsedTime:Number = TimeManager.timeManager.GetFrameDeltaTime();
+			
+			updateTime += elapsedTime;
+				
+			if (updateTime >=  directionChangeDelay)
+			{
+				//ChangeDirection();
+				updateTime = 0;
+			}			
+			
+			 targetPoint.x = x + direction.x * speed * elapsedTime / 1000 ;
+			 targetPoint.y = y + direction.y * speed * elapsedTime / 1000;
+			
+			//on change de direction en cas de collisions avec les bords de la fenêtre 
+			if (targetPoint.y<0) {
+				ChangeDirection();
+			}
+			if (targetPoint.y >600) {
+				ChangeDirection();
+			}
+			if (targetPoint.x<0) {
+				ChangeDirection();
+			}
+			if (targetPoint.x>650) {
+				ChangeDirection();
+			}
+		}
+		
 		override public function onAgentCollide(_event:AgentCollideEvent) : void
 		{
 			var collidedAgent:Agent = _event.GetAgent();
-			//var pointNidHome:Point;
-			//var pointNidEnnemi:Point;
 			
 			/*if (collidedAgent.GetType() == AgentType.AGENT_RESOURCE) {
-				if (!HasResource()) // si je transporte pas de ressources alors je récolte la ressource
-				{
-					(collidedAgent as Resource).DecreaseLife();
-					SetResource(true);
+				setPointResource((collidedAgent as Resource).GetTargetPoint());
+				if (botSuiveurResource == null){
+					botSuiveurResource = this;
 				}
-				//moveAt(pointNid);
-				ChangeDirection();
-			}else if (collidedAgent.GetType() == AgentType.AGENT_BOT) {
-				if ((collidedAgent as Bot).GetTeamId() != "TrioDeChoc") {
-					if (!HasResource()) //.. alors si je transporte pas de ressources, je vol la ressource de l'agent ennemi
-					{
-						StealResource(collidedAgent as Bot);
-						SetResource(true);
-					}
+			}*/
+			
+			
+			
+			/*else if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME){
+				setPointNidHome((collidedAgent as BotHome).GetTargetPoint());
+				if(botSuiveurNidHome == null){
+					botSuiveurNidHome = this;
 				}
-				ChangeDirection();*/
-
-			/*}else*/ if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME){
+			}*/
+			//trace("botsuiveurresource " + botSuiveurResource);
+			//trace("botnidhome " + botSuiveurNidHome);
+			
+			
+			
+			
+			
+			
+			//good
+			if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME){
 				if ((collidedAgent as BotHome).GetTeamId() != "TrioDeChoc" ) {
 					//... et qu'on ne transporte pas de ressource alors on vole le nid ennemi
-					setPointNidEnnemi((collidedAgent as BotHome).GetTargetPoint());
-					//pointNidEnnemi = (collidedAgent as BotHome).GetTargetPoint();
+					//setPointNidEnnemi((collidedAgent as BotHome).GetTargetPoint());
+					pointNidEnnemi = (collidedAgent as BotHome).GetTargetPoint();
 					if (!HasResource())
 					{
 						(collidedAgent as BotHome).TakeResource();
 						SetResource(true);
 					}
-					if (pointNidHome != null) {
-						trace("poindNidHome " + pointNidHome);
-						moveAt(getPointNidHome());
+					if(nidHome != null){
+					//if (getPointNidHome() != null) {
+						//moveAt(getPointNidHome());
+						moveAt(nidHome.GetTargetPoint());
 					}else {
 						ChangeDirection();
 					}
 				}else { // sinon c'est notre nid donc on dépose les ressources
-					setPointNidHome((collidedAgent as BotHome).GetTargetPoint());
-					//pointNidHome = (collidedAgent as BotHome).GetTargetPoint();
+					//setPointNidHome((collidedAgent as BotHome).GetTargetPoint());
+					nidHome = (collidedAgent as BotHome);
 					if (HasResource())
 					{
 						(collidedAgent as BotHome).AddResource();
 						SetResource(false);
 					}
-					if (pointNidEnnemi != null) {
-						trace("poindNidEnnemi " + pointNidEnnemi);
-						moveAt(getPointNidEnnemi());
+					if(pointNidEnnemi != null){
+					//if (getPointNidEnnemi() != null) {
+						//moveAt(getPointNidEnnemi());
+						moveAt(pointNidEnnemi);
 					}else {
 						ChangeDirection();
 					}
 				}
 			}
+			/*else {
+				if(pointNidEnnemi != null){
+					//if (getPointNidEnnemi() != null) {
+						//moveAt(getPointNidEnnemi());
+					moveAt(pointNidEnnemi);
+				}else {
+					ChangeDirection();
+				}
+			}*/
 			
 			
+			/*if (collidedAgent.GetType() == AgentType.AGENT_RESOURCE) {
+				//setPointResource((collidedAgent as Resource).GetTargetPoint());
+				pointResource = (collidedAgent as Resource).GetTargetPoint();
+				if (!HasResource()) // si je transporte pas de ressources alors je récolte la ressource
+				{
+					(collidedAgent as Resource).DecreaseLife();
+					SetResource(true);	
+				}
+				if (pointNidHome != null) {
+				moveAt(pointNidHome);
+				//if (getPointResource() != null) {
+					//moveAt(getPointResource());
+				}else {
+					ChangeDirection();
+				}
+			}*/
+			
+				/*setPointResource((collidedAgent as Resource).GetTargetPoint());
+				if (!HasResource()) // si je transporte pas de ressources alors je récolte la ressource
+				{
+					(collidedAgent as Resource).DecreaseLife();
+					SetResource(true);
+					if (getPointNidHome() != null) { //et si je connais les coordonnees de mon nid je m'y rend
+						moveAt(getPointNidHome());
+					}else {
+						ChangeDirection();
+					}
+				}else {
+					if (getPointNidHome() != null) { //et si je connais les coordonnees de mon nid je m'y rend
+						moveAt(getPointNidHome());
+					}else {
+						ChangeDirection();
+					}
+				}*/
+
 			/*if (collidedAgent.GetType() == AgentType.AGENT_RESOURCE)
 			{
-				moveAt((collidedAgent as Resource).GetTargetPoint());	
-			}else if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME) {
-				if ((collidedAgent as BotHome).GetTeamId() == "TrioDeChoc" ){
+				setPointResource((collidedAgent as Resource).GetTargetPoint());
+				trace("point resource " + getPointResource());
+				moveAt(getPointResource());
+			}/*else if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME) {
+				if ((collidedAgent as BotHome).GetTeamId() == "TrioDeChoc" ) {
+					setPointNidHome((collidedAgent as BotHome).GetTargetPoint());
+					trace("point nid home " + getPointNidHome());
+					moveAt((collidedAgent as BotHome).GetTargetPoint());
+				}else {
+					setPointNidEnnemi((collidedAgent as BotHome).GetTargetPoint());
+					trace("point nid ennemi " + getPointNidEnnemi());
 					moveAt((collidedAgent as BotHome).GetTargetPoint());
 				}
 			}*/

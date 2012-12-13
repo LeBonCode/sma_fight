@@ -1,41 +1,26 @@
 package com.novabox.TrioDeChoc 
 {
-	import com.novabox.MASwithTwoNests.Bot;
 	import com.novabox.MASwithTwoNests.Agent;
 	import com.novabox.MASwithTwoNests.AgentCollideEvent;
 	import com.novabox.MASwithTwoNests.AgentType;
+	import com.novabox.MASwithTwoNests.Bot;
 	import com.novabox.MASwithTwoNests.BotHome;
 	import com.novabox.MASwithTwoNests.Resource;
 	import com.novabox.MASwithTwoNests.TimeManager;
 	import flash.events.Event;
 	import flash.geom.Point;
-	/**
-	 * ...
-	 * @author ...
-	 */
-	public class SuperBot extends Bot
-	{	
-		protected var updateTime:Number = 0;
-		static protected var nidHome:BotHome;
-		static protected var pointNidEnnemi:Point;
-		static protected var uneResource:Resource;
+	
+	public class BotRecolteur extends SuperBot
+	{
 		
-		/*public var botSuiveurResource:Bot;
-		public var botSuiveurNidHome:Bot;*/
-		
-		public function SuperBot(_type:AgentType) 
+		public function BotRecolteur(_type:AgentType) 
 		{
 			super(_type);
-			updateTime = 0;
-		}
-		
-		public function GetColor() : int
-		{
-			return color;
 		}
 		
 		override public function Update() : void
 		{
+			
 			var elapsedTime:Number = TimeManager.timeManager.GetFrameDeltaTime();
 			
 			updateTime += elapsedTime;
@@ -62,31 +47,48 @@ package com.novabox.TrioDeChoc
 			if (targetPoint.x>650) {
 				ChangeDirection();
 			}
-
+			
 		}
 		
 		override public function onAgentCollide(_event:AgentCollideEvent) : void
 		{
+			var collidedAgent:Agent = _event.GetAgent();
+			
+			if (!HasResource() && uneResource != null) {
+				moveAt(uneResource.GetTargetPoint());
+				if (moveAt(uneResource.GetTargetPoint())) {
+					uneResource.DecreaseLife();
+					SetResource(true);
+					trace ("j'ai une resource");
+				}
+			}
+			
+			if (HasResource() && nidHome != null) {
+				moveAt(nidHome.GetTargetPoint());
+				if (moveAt(nidHome.GetTargetPoint())) {
+					nidHome.AddResource();
+					SetResource(false);
+					trace("je suis arrivé au nid");
+				}
+			}
+			
+			/*if (uneResource != null) {
+				moveAt(uneResource.GetTargetPoint());
+				if (!HasResource()) // si je transporte pas de ressources alors je récolte la ressource
+				{
+					(collidedAgent as Resource).DecreaseLife();
+					SetResource(true);
+					if (pointNidHome != null) { //et si je connais les coordonnees de mon nid je m'y rend
+						moveAt(pointNidHome);
+					}else {
+						ChangeDirection();
+					}
+				}
+			}*/
+			
+			
 		}
 		
-		public function moveAt(_thisPoint:Point) : Boolean
-		{
-			var pixelByFrame:Number = this.speed / (TimeManager.timeManager.GetFrameDeltaTime());
-			var distanceBetweenMeAndTisPoint:Number = Math.sqrt(Math.pow((this.x - _thisPoint.x), 2) + Math.pow((this.y - _thisPoint.y), 2));
-				
-			if ((distanceBetweenMeAndTisPoint > pixelByFrame) || (pixelByFrame == Infinity)) {
-				direction = _thisPoint.subtract(targetPoint);
-				direction.normalize(1);
-				return false;
-			}else {
-				this.x = _thisPoint.x;
-				this.y = _thisPoint.y;
-				direction.x = 0;
-				direction.y = 0;
-				//trace("je suis arrivé");
-				return true;
-			}
-		}
 	}
 
 }

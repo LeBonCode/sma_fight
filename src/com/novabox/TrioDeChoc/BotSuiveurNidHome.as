@@ -1,37 +1,21 @@
 package com.novabox.TrioDeChoc 
 {
-	import com.novabox.MASwithTwoNests.Bot;
 	import com.novabox.MASwithTwoNests.Agent;
 	import com.novabox.MASwithTwoNests.AgentCollideEvent;
 	import com.novabox.MASwithTwoNests.AgentType;
+	import com.novabox.MASwithTwoNests.Bot;
 	import com.novabox.MASwithTwoNests.BotHome;
 	import com.novabox.MASwithTwoNests.Resource;
 	import com.novabox.MASwithTwoNests.TimeManager;
 	import flash.events.Event;
 	import flash.geom.Point;
-	/**
-	 * ...
-	 * @author ...
-	 */
-	public class SuperBot extends Bot
-	{	
-		protected var updateTime:Number = 0;
-		static protected var nidHome:BotHome;
-		static protected var pointNidEnnemi:Point;
-		static protected var uneResource:Resource;
+	
+	public class BotSuiveurNidHome extends SuperBot
+	{
 		
-		/*public var botSuiveurResource:Bot;
-		public var botSuiveurNidHome:Bot;*/
-		
-		public function SuperBot(_type:AgentType) 
+		public function BotSuiveurNidHome (_type:AgentType) 
 		{
 			super(_type);
-			updateTime = 0;
-		}
-		
-		public function GetColor() : int
-		{
-			return color;
 		}
 		
 		override public function Update() : void
@@ -62,31 +46,27 @@ package com.novabox.TrioDeChoc
 			if (targetPoint.x>650) {
 				ChangeDirection();
 			}
-
+			
+			if (nidHome != null ){
+				moveAt(nidHome.GetTargetPoint());
+			}	
 		}
 		
 		override public function onAgentCollide(_event:AgentCollideEvent) : void
 		{
-		}
-		
-		public function moveAt(_thisPoint:Point) : Boolean
-		{
-			var pixelByFrame:Number = this.speed / (TimeManager.timeManager.GetFrameDeltaTime());
-			var distanceBetweenMeAndTisPoint:Number = Math.sqrt(Math.pow((this.x - _thisPoint.x), 2) + Math.pow((this.y - _thisPoint.y), 2));
-				
-			if ((distanceBetweenMeAndTisPoint > pixelByFrame) || (pixelByFrame == Infinity)) {
-				direction = _thisPoint.subtract(targetPoint);
-				direction.normalize(1);
-				return false;
-			}else {
-				this.x = _thisPoint.x;
-				this.y = _thisPoint.y;
-				direction.x = 0;
-				direction.y = 0;
-				//trace("je suis arrivé");
-				return true;
+			var collidedAgent:Agent = _event.GetAgent();
+			
+			if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME)
+			{
+				//on met à jour la resource (notament ses coordonnees) pour avoir sa position exacte
+				//si la ressource collisioné est bien la ressource repérée par les bots explorateurs.
+				if (collidedAgent == nidHome) {
+					nidHome = (collidedAgent as BotHome); 
+					trace("MAJ point nid home " + nidHome.GetTargetPoint());
+				}
 			}
 		}
+		
 	}
 
 }
