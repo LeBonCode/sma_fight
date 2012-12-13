@@ -7,6 +7,7 @@ package com.novabox.TrioDeChoc
 	import com.novabox.MASwithTwoNests.BotHome;
 	import com.novabox.MASwithTwoNests.Resource;
 	import com.novabox.MASwithTwoNests.TimeManager;
+	import com.novabox.MASwithTwoNests.World;
 	import flash.events.Event;
 	import flash.geom.Point;
 	/**
@@ -19,9 +20,6 @@ package com.novabox.TrioDeChoc
 		static protected var nidHome:BotHome;
 		static protected var nidEnnemi:BotHome;
 		static protected var uneResource:Resource;
-		
-		/*public var botSuiveurResource:Bot;
-		public var botSuiveurNidHome:Bot;*/
 		
 		public function SuperBot(_type:AgentType) 
 		{
@@ -53,13 +51,13 @@ package com.novabox.TrioDeChoc
 			if (targetPoint.y<0) {
 				ChangeDirection();
 			}
-			if (targetPoint.y >600) {
+			if (targetPoint.y > World.WORLD_HEIGHT) {
 				ChangeDirection();
 			}
 			if (targetPoint.x<0) {
 				ChangeDirection();
 			}
-			if (targetPoint.x>650) {
+			if (targetPoint.x > World.WORLD_WIDTH) {
 				ChangeDirection();
 			}
 

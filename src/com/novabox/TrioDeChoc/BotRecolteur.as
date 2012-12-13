@@ -7,6 +7,7 @@ package com.novabox.TrioDeChoc
 	import com.novabox.MASwithTwoNests.BotHome;
 	import com.novabox.MASwithTwoNests.Resource;
 	import com.novabox.MASwithTwoNests.TimeManager;
+	import com.novabox.MASwithTwoNests.World;
 	import flash.events.Event;
 	import flash.geom.Point;
 	
@@ -18,38 +19,6 @@ package com.novabox.TrioDeChoc
 			super(_type);
 		}
 		
-		override public function Update() : void
-		{
-			
-			var elapsedTime:Number = TimeManager.timeManager.GetFrameDeltaTime();
-			
-			updateTime += elapsedTime;
-				
-			if (updateTime >=  directionChangeDelay)
-			{
-				//ChangeDirection();
-				updateTime = 0;
-			}			
-			
-			 targetPoint.x = x + direction.x * speed * elapsedTime / 1000 ;
-			 targetPoint.y = y + direction.y * speed * elapsedTime / 1000;
-			
-			//on change de direction en cas de collisions avec les bords de la fenêtre 
-			if (targetPoint.y<0) {
-				ChangeDirection();
-			}
-			if (targetPoint.y >600) {
-				ChangeDirection();
-			}
-			if (targetPoint.x<0) {
-				ChangeDirection();
-			}
-			if (targetPoint.x>650) {
-				ChangeDirection();
-			}
-			
-		}
-		
 		override public function onAgentCollide(_event:AgentCollideEvent) : void
 		{
 			var collidedAgent:Agent = _event.GetAgent();
@@ -57,9 +26,11 @@ package com.novabox.TrioDeChoc
 			if (!HasResource() && uneResource != null) {
 				moveAt(uneResource.GetTargetPoint());
 				if (moveAt(uneResource.GetTargetPoint())) {
-					uneResource.DecreaseLife();
-					SetResource(true);
-					trace ("j'ai pris une resource");
+					if (uneResource.GetLife() > 0) { //évite un bug sinon les bots continu de vider une ressource nulle.
+						uneResource.DecreaseLife();
+						SetResource(true);
+						trace ("j'ai pris une resource");
+					}
 				}
 			}
 			
@@ -71,6 +42,8 @@ package com.novabox.TrioDeChoc
 					trace("je suis arrivé au nid, je dépose mes ressources");
 				}
 			}
+			
+			
 			
 			/*if (uneResource != null) {
 				moveAt(uneResource.GetTargetPoint());

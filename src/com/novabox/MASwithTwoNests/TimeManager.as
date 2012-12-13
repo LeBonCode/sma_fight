@@ -29,7 +29,6 @@
 			frameDeltaTime =   (currentTime - appTime);
 
 			appTime += frameDeltaTime;		
-
 		}
 		
 		public function GetFrameDeltaTime():Number

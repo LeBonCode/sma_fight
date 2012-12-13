@@ -66,7 +66,7 @@ package com.novabox.TrioDeChoc
 				//si la ressource collisioné est bien la ressource repérée par les bots explorateurs.
 				if (collidedAgent == nidHome) {
 					nidHome = (collidedAgent as BotHome); 
-					trace("MAJ point nid home " + nidHome.GetTargetPoint());
+					//trace("MAJ point nid home " + nidHome.GetTargetPoint());
 				}
 			}
 		}
