@@ -59,7 +59,7 @@ package com.novabox.TrioDeChoc
 				if (moveAt(uneResource.GetTargetPoint())) {
 					uneResource.DecreaseLife();
 					SetResource(true);
-					trace ("j'ai une resource");
+					trace ("j'ai pris une resource");
 				}
 			}
 			
@@ -68,7 +68,7 @@ package com.novabox.TrioDeChoc
 				if (moveAt(nidHome.GetTargetPoint())) {
 					nidHome.AddResource();
 					SetResource(false);
-					trace("je suis arrivé au nid");
+					trace("je suis arrivé au nid, je dépose mes ressources");
 				}
 			}
 			

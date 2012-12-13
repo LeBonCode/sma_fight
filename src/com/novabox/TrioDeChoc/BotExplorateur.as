@@ -40,7 +40,7 @@ package com.novabox.TrioDeChoc
 			if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME) {
 				if ((collidedAgent as BotHome).GetTeamId() == "TrioDeChoc" ) {
 					nidHome = (collidedAgent as BotHome);
-					trace("point nid home " + nidHome);
+					//trace("point nid home " + nidHome.GetTargetPoint());
 				}else {
 					pointNidEnnemi = (collidedAgent as BotHome).GetTargetPoint();
 					//trace("point nid ennemi " + pointNidEnnemi);
