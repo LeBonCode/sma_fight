@@ -63,7 +63,8 @@
 																	TrioDeChocType.BOT_SUIVEUR_RESOURCE,
 																	TrioDeChocType.BOT_SUIVEUR_NID_HOME,
 																	TrioDeChocType.BOT_EXPLORATEUR,
-																	TrioDeChocType.BOT_RECOLTEUR
+																	TrioDeChocType.BOT_RECOLTEUR,
+																	TrioDeChocType.BOT_TEST
 																));
 
 		

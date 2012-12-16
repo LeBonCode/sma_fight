@@ -17,9 +17,42 @@ package com.novabox.TrioDeChoc
 	public class SuperBot extends Bot
 	{	
 		protected var updateTime:Number = 0;
-		static protected var nidHome:BotHome;
+		/*static protected var nidHome:BotHome;
 		static protected var nidEnnemi:BotHome;
-		static protected var uneResource:Resource;
+		static protected var uneResource:Resource;*/
+		
+		/*protected var nidHome:BotHome;
+		protected var nidEnnemi:BotHome;
+		protected var uneResource:Resource;
+		protected var idBot : String;
+		
+		public function getIdBot() : String {
+			return idBot;
+		}
+		
+		public function getNidHome() : BotHome {
+			return nidHome;
+		}
+		
+		public function setNidHome(_nidHome:BotHome) : void {
+			nidHome = _nidHome;
+		}
+		
+		public function getNidEnnemi() :BotHome {
+			return nidEnnemi;
+		}
+		
+		public function setNidEnnemi(_nidEnnemi:BotHome) :void {
+			nidEnnemi = _nidEnnemi;
+		}
+		
+		public function getUneResouce() : Resource {
+			return uneResource;
+		}
+		
+		public function setUneResource(_uneResource:Resource) : void {
+			uneResource = _uneResource;
+		}*/
 		
 		public function SuperBot(_type:AgentType) 
 		{

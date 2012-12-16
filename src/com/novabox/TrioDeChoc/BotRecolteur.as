@@ -23,10 +23,10 @@ package com.novabox.TrioDeChoc
 		{
 			var collidedAgent:Agent = _event.GetAgent();
 			
-			/*
-			 * RECOLTE DES RESSOURCES
-			 */ 
-			if (!HasResource() && uneResource != null) {
+			
+			// RECOLTE DES RESSOURCES
+			 
+		/*	if (!HasResource() && uneResource != null) {
 				moveAt(uneResource.GetTargetPoint());
 				if (moveAt(uneResource.GetTargetPoint())) {
 					if (uneResource.GetLife() > 0) { 
@@ -39,9 +39,9 @@ package com.novabox.TrioDeChoc
 			}
 			
 			
-			/*
-			 * RETOUR AU NID POUR DEPOSER LES RESSOURCES
-			 */ 
+			
+			//RETOUR AU NID POUR DEPOSER LES RESSOURCES
+			
 			if (HasResource() && nidHome != null) {
 				moveAt(nidHome.GetTargetPoint());
 				if (moveAt(nidHome.GetTargetPoint())) {
@@ -51,9 +51,9 @@ package com.novabox.TrioDeChoc
 				}
 			}
 			
-			/*
-			 * VOL DES RESSOURCES A UN NID ENNEMI 
-			 */ 
+			
+			// VOL DES RESSOURCES A UN NID ENNEMI 
+			  
 			if (!HasResource() && uneResource != null && uneResource.GetLife() <= 0) {
 				//trace ("jsui vide, et la ressource visée est vide " + uneResource.GetLife());
 				moveAt(nidEnnemi.GetTargetPoint());
@@ -65,7 +65,7 @@ package com.novabox.TrioDeChoc
 					}
 				}
 			}
-			
+		*/	
 		}
 		
 	}

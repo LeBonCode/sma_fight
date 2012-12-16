@@ -1,7 +1,8 @@
 package com.novabox.TrioDeChoc 
 {
 	import com.novabox.MASwithTwoNests.BotHome;
-	
+	import com.novabox.MASwithTwoNests.World;
+	import flash.display.Sprite;
 	/**
 	 * ...
 	 * @author ...
@@ -14,7 +15,4 @@ package com.novabox.TrioDeChoc
 		{
 			super(_teamId, _color);
 		}
-		
-	}
-
 }

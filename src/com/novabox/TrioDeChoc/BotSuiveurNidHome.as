@@ -22,7 +22,7 @@ package com.novabox.TrioDeChoc
 			super(_type);
 		}
 		
-		override public function Update() : void
+		/*override public function Update() : void
 		{
 			var elapsedTime:Number = TimeManager.timeManager.GetFrameDeltaTime();
 			
@@ -53,7 +53,7 @@ package com.novabox.TrioDeChoc
 			
 			if (nidHome != null ){
 				moveAt(nidHome.GetTargetPoint());
-			}	
+			}
 		}
 		
 		override public function onAgentCollide(_event:AgentCollideEvent) : void
@@ -69,7 +69,7 @@ package com.novabox.TrioDeChoc
 					//trace("MAJ point nid home " + nidHome.GetTargetPoint());
 				}
 			}
-		}
+		}*/
 		
 	}
 

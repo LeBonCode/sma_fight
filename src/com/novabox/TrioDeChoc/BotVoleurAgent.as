@@ -32,6 +32,7 @@ package com.novabox.TrioDeChoc
 				if ((collidedAgent as Bot).GetTeamId() != "TrioDeChoc") {
 					if (!HasResource()) //.. alors si je transporte pas de ressources, je vol la ressource de l'agent ennemi
 					{
+						
 						StealResource(collidedAgent as Bot);
 						SetResource(true);
 					}

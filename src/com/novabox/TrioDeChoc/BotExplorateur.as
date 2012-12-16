@@ -17,37 +17,37 @@ package com.novabox.TrioDeChoc
 		public function BotExplorateur(_type:AgentType) 
 		{
 			super(_type);
+			//idBot = "explorer";
 		}
 		
 		override public function onAgentCollide(_event:AgentCollideEvent) : void
 		{
 			var collidedAgent:Agent = _event.GetAgent();
 			
-			if (collidedAgent.GetType() == AgentType.AGENT_RESOURCE)
+			/*if (collidedAgent.GetType() == AgentType.AGENT_RESOURCE)
 			{
-				if (uneResource == null) {
-					uneResource = (collidedAgent as Resource);
-					//trace("point resource " + uneResource.GetTargetPoint());
-					//trace("life resource  " + uneResource.GetLife());
+				if (getUneResouce() == null) {
+					setUneResource(collidedAgent as Resource);
+					//trace("coordonnées resources " + getUneResouce().GetTargetPoint());
+					//trace("vie" + getUneResouce().GetLife());
 				}
 				
-				if((collidedAgent as Resource).GetLife() > uneResource.GetLife()){
-					uneResource = (collidedAgent as Resource);
-					//trace("point resource big" + uneResource.GetTargetPoint());
-					//trace("life resource big " + uneResource.GetLife());
+				if((collidedAgent as Resource).GetLife() > getUneResouce().GetLife()){
+					setUneResource(collidedAgent as Resource);
+					//trace("big ressource" + getUneResouce().GetTargetPoint());
+					//trace("vie big" + getUneResouce().GetLife());
 				}
 			}
 			
 			if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME) {
 				if ((collidedAgent as BotHome).GetTeamId() == "TrioDeChoc" ) {
-					nidHome = (collidedAgent as BotHome);
-					//trace("point nid home " + nidHome.GetTargetPoint());
+					setNidHome(collidedAgent as BotHome);
+					//trace("coordonnees nidHome " + getNidHome().GetTargetPoint());
 				}else {
-					nidEnnemi = (collidedAgent as BotHome);
-					//nidEnnemi = World.teams
-					//trace("point nid ennemi " + nidEnnemi.GetTargetPoint());
+					setNidEnnemi(collidedAgent as BotHome);
+					//trace("coordonnees nidEnnemi " + getNidEnnemi().GetTargetPoint());		
 				}
-			}
+			}*/
 		}
 		
 	}
