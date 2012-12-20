@@ -53,7 +53,7 @@ package com.novabox.TrioDeChoc
 		{
 			var collidedAgent:Agent = _event.GetAgent();
 		
-			if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME){
+			if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME) {
 				if ((collidedAgent as BotHome).GetTeamId() != "TrioDeChoc" ) {
 					//... et qu'on ne transporte pas de ressource alors on vole le nid ennemi
 					setNidEnnemi(collidedAgent as BotHome);
@@ -115,11 +115,13 @@ package com.novabox.TrioDeChoc
 				}
 			}
 			
-			//fonctionne visiblement pas
-			/*if (collidedAgent.GetType() == AgentType.AGENT_BOT) {
+			//point au milieu , timestamp
+			if ((collidedAgent as Bot) != null && (collidedAgent as Bot) != this) {
 				if ((collidedAgent as Bot).GetTeamId() == "TrioDeChoc" ) {
 					if (getNidHome() != null) {
+						trace("avant "+ (collidedAgent as BotTest).getNidHome());
 						(collidedAgent as BotTest).setNidHome(this.getNidHome());
+						trace("apres "+ (collidedAgent as BotTest).getNidHome());
 					}
 					if (getNidEnnemi() != null) {
 						(collidedAgent as BotTest).setNidEnnemi(this.getNidEnnemi());
@@ -128,8 +130,8 @@ package com.novabox.TrioDeChoc
 						(collidedAgent as BotTest).setUneResource(this.getUneResouce());
 					}
 				}
-			}*/
-			
+			}
+
 		}
 		
 	}
