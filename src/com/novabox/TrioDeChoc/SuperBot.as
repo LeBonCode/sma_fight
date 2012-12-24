@@ -17,42 +17,6 @@ package com.novabox.TrioDeChoc
 	public class SuperBot extends Bot
 	{	
 		protected var updateTime:Number = 0;
-		/*static protected var nidHome:BotHome;
-		static protected var nidEnnemi:BotHome;
-		static protected var uneResource:Resource;*/
-		
-		/*protected var nidHome:BotHome;
-		protected var nidEnnemi:BotHome;
-		protected var uneResource:Resource;
-		protected var idBot : String;
-		
-		public function getIdBot() : String {
-			return idBot;
-		}
-		
-		public function getNidHome() : BotHome {
-			return nidHome;
-		}
-		
-		public function setNidHome(_nidHome:BotHome) : void {
-			nidHome = _nidHome;
-		}
-		
-		public function getNidEnnemi() :BotHome {
-			return nidEnnemi;
-		}
-		
-		public function setNidEnnemi(_nidEnnemi:BotHome) :void {
-			nidEnnemi = _nidEnnemi;
-		}
-		
-		public function getUneResouce() : Resource {
-			return uneResource;
-		}
-		
-		public function setUneResource(_uneResource:Resource) : void {
-			uneResource = _uneResource;
-		}*/
 		
 		public function SuperBot(_type:AgentType) 
 		{
@@ -79,21 +43,6 @@ package com.novabox.TrioDeChoc
 			
 			 targetPoint.x = x + direction.x * speed * elapsedTime / 1000 ;
 			 targetPoint.y = y + direction.y * speed * elapsedTime / 1000;
-			
-			//on change de direction en cas de collisions avec les bords de la fenêtre 
-			if (targetPoint.y<0) {
-				ChangeDirection();
-			}
-			if (targetPoint.y > World.WORLD_HEIGHT) {
-				ChangeDirection();
-			}
-			if (targetPoint.x<0) {
-				ChangeDirection();
-			}
-			if (targetPoint.x > World.WORLD_WIDTH) {
-				ChangeDirection();
-			}
-
 		}
 		
 		override public function onAgentCollide(_event:AgentCollideEvent) : void
