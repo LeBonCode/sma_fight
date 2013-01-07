@@ -120,9 +120,9 @@ package com.novabox.TrioDeChoc
 			}
 			
 			//collision entre mes bots
-			//Communication entre les agents
 			if ((collidedAgent as Bot) != null && (collidedAgent as Bot) != this) {
-				if ((collidedAgent as Bot).GetTeamId() == "TrioDeChoc" ) {	
+				if ((collidedAgent as Bot).GetTeamId() == "TrioDeChoc" ) { 
+					//Communication entre mes agents	
 					//j'ai des infos et l'autre non
 					if (nidHome[0] != null && (collidedAgent as BotTest).nidHome[0] == null) {
 						/*trace("moi info, l'autre non");
@@ -183,90 +183,23 @@ package com.novabox.TrioDeChoc
 						}
 					}
 				// sinon c'est un bot adverse	
-				}
-			}		
-			
-			
-			
-			
-			
-			/*if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME) {
-				if ((collidedAgent as BotHome).GetTeamId() != "TrioDeChoc" ) {
-					//.. et qu'on ne transporte pas de ressource alors on vole le nid ennemi
-					nidEnnemi[0] = (collidedAgent as BotHome).GetTargetPoint();
-					nidEnnemi[1] = new Date().time;					
-					//trace("coord "+nidEnnemi[0], "timestamp " +nidEnnemi[1]);
-					if (!HasResource())
-					{
-						if ((collidedAgent as BotHome).HasResource()) {
-							(collidedAgent as BotHome).TakeResource();
+				}else {
+					if ((collidedAgent as Bot).HasResource()) {
+						if (!HasResource()) {
+							StealResource((collidedAgent as Bot))
 							SetResource(true);
+							trace("steal ressource");
+							if (nidHome[0] != null) {
+								if(HasResource()){
+									moveAt(nidHome[0]);
+								}
+							}else {
+								ChangeDirection();
+							}
 						}
 					}
-					
-					if(nidHome[0] != null){
-						moveAt(nidHome[0]);
-					}else {
-						ChangeDirection();
-						trace("change direction bot home ennemi");
-					}
-				}else { // sinon c'est notre nid donc on dépose les ressources
-					nidHome[0] = (collidedAgent as BotHome).GetTargetPoint();
-					nidHome[1] = new Date().time;	
-					if (HasResource())
-					{
-						(collidedAgent as BotHome).AddResource();
-						SetResource(false);
-					}
-					
-					if(nidEnnemi[0] != null){
-						moveAt(nidEnnemi[0]);
-					}else if (uneResource[0] != null) {
-						moveAt(uneResource[0]);
-					}else {
-						ChangeDirection();
-						trace("change direction bot home");
-					}
 				}
-			}
-			
-			if (collidedAgent.GetType() == AgentType.AGENT_RESOURCE)
-			{
-				if (uneResource[0] == null) {
-					uneResource[0] = (collidedAgent as Resource).GetTargetPoint();
-					uneResource[1] = new Date().time;	
-					uneResource[2] = (collidedAgent as Resource).GetLife();
-					trace("init : coord " +uneResource[0], "time "+uneResource[1], "life "+uneResource[2]);
-				}
-				
-				/*if ((collidedAgent as Resource).GetLife() > uneResource[2]) {
-					trace("AVANT : coord " +uneResource[0], "time "+uneResource[1], "life "+uneResource[2]);
-					uneResource[0] = (collidedAgent as Resource).GetTargetPoint();
-					uneResource[1] = new Date().time;	
-					uneResource[2] = (collidedAgent as Resource).GetLife();
-					trace("APRES : coord " +uneResource[0], "time "+uneResource[1], "life "+uneResource[2]);
-				}
-				*/
-				/*if (!HasResource()) // si je transporte pas de ressources alors je récolte la ressource
-				{
-					if ((collidedAgent as Resource).GetLife() > 0) { 
-						(collidedAgent as Resource).DecreaseLife();
-						//trace("avant decrease "+uneResource[2]);
-						//uneResource[2] = ((collidedAgent as Resource).GetLife() - World.RESOURCE_UPDATE_VALUE);
-						//trace("apres decrease "+uneResource[2]);
-						SetResource(true);	
-					}
-				}
-			
-				if (nidHome[0] != null) {
-					moveAt(nidHome[0]);
-					trace("change direction (moveat nid home) ressource");
-				}else {
-					ChangeDirection();
-					trace("change direction ressource");
-				}
-			}*/
-
+			}	
 		}
 		
 	}
