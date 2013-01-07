@@ -6,19 +6,15 @@ package com.novabox.TrioDeChoc
 	{
 		
 		/* USELESS*/
-		public static const BOT_VOLEUR_NID:AgentType = new AgentType(BotVoleurNid, 0);
+		/*public static const BOT_VOLEUR_NID:AgentType = new AgentType(BotVoleurNid, 0);
 		public static const BOT_VOLEUR_AGENT:AgentType = new AgentType(BotVoleurAgent, 0);
-		
-		/* USEFULL */
 		public static const BOT_SUIVEUR_RESOURCE:AgentType = new AgentType(BotSuiveurResource, 0);
 		public static const BOT_SUIVEUR_NID_HOME:AgentType = new AgentType(BotSuiveurNidHome, 0);
 		public static const BOT_EXPLORATEUR:AgentType = new AgentType(BotExplorateur, 0);
-		public static const BOT_RECOLTEUR:AgentType = new AgentType(BotRecolteur, 0);
-		public static const BOT_TEST:AgentType = new AgentType(BotTest, 1);
-		/*public function TrioDeChocType() 
-		{
-			
-		}*/
+		public static const BOT_RECOLTEUR:AgentType = new AgentType(BotRecolteur, 0);*/
+		
+		/* USEFULL */
+		public static const BOT_DE_CHOC:AgentType = new AgentType(BotDeChoc, 1);
 		
 	}
 }

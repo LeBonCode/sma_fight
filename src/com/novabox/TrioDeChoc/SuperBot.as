@@ -63,7 +63,6 @@ package com.novabox.TrioDeChoc
 				this.y = _thisPoint.y;
 				direction.x = 0;
 				direction.y = 0;
-				//trace("je suis arrivé");
 				return true;
 			}
 		}

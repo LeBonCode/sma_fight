@@ -15,13 +15,13 @@ package com.novabox.TrioDeChoc
 	 * ...
 	 * @author ...
 	 */
-	public class BotTest extends SuperBot
+	public class BotDeChoc extends SuperBot
 	{
 		public var unNidEnnemi : Point;  // coord
 		public var nidHome : Array = new Array ();      // [0] coord, [1] timestamp
 		public var uneResource : Array = new Array ();  // [0] coord, [1] timestamp, [2] life
 		
-		public function BotTest(_type:AgentType) 
+		public function BotDeChoc(_type:AgentType) 
 		{
 			super(_type);
 		}
@@ -43,11 +43,6 @@ package com.novabox.TrioDeChoc
 				ChangeDirection();		
 			}
 			
-			/*if (nidHome[0] != null) {
-				if (HasResource()) {
-					moveAt(nidHome[0]);
-				}
-			}*/
 		}
 		
 		override public function onAgentCollide(_event:AgentCollideEvent) : void
@@ -103,7 +98,7 @@ package com.novabox.TrioDeChoc
 							uneResource[2] = null;
 							ChangeDirection();
 						}
-					}else {
+					}else { 
 						uneResource[0] = (collidedAgent as Resource).GetTargetPoint();
 						uneResource[1] = new Date().time;
 						uneResource[2] = (collidedAgent as Resource).GetLife();	
@@ -122,73 +117,75 @@ package com.novabox.TrioDeChoc
 			//collision entre mes bots
 			if ((collidedAgent as Bot) != null && (collidedAgent as Bot) != this) {
 				if ((collidedAgent as Bot).GetTeamId() == "TrioDeChoc" ) { 
+					
 					//Communication entre mes agents	
+					
 					//j'ai des infos et l'autre non
-					if (nidHome[0] != null && (collidedAgent as BotTest).nidHome[0] == null) {
+					if (nidHome[0] != null && (collidedAgent as BotDeChoc).nidHome[0] == null) {
 						/*trace("moi info, l'autre non");
 						trace("AVANT");
 						trace("MES infos : coord " + nidHome[0], "timestamp " + nidHome[1]);
-						trace("SES infos : coord "+(collidedAgent as BotTest).nidHome[0], "timestamp "+(collidedAgent as BotTest).nidHome[1]);*/
-						(collidedAgent as BotTest).nidHome[0] = nidHome[0];
-						(collidedAgent as BotTest).nidHome[1] = nidHome[1];
+						trace("SES infos : coord "+(collidedAgent as BotDeChoc).nidHome[0], "timestamp "+(collidedAgent as BotDeChoc).nidHome[1]);*/
+						(collidedAgent as BotDeChoc).nidHome[0] = nidHome[0];
+						(collidedAgent as BotDeChoc).nidHome[1] = nidHome[1];
 						/*trace("APRES");
 						trace("moi info, l'autre non");
 						trace("MES infos : coord " + nidHome[0], "timestamp " + nidHome[1]);
-						trace("SES infos : coord "+(collidedAgent as BotTest).nidHome[0], "timestamp "+(collidedAgent as BotTest).nidHome[1]);*/
+						trace("SES infos : coord "+(collidedAgent as BotDeChoc).nidHome[0], "timestamp "+(collidedAgent as BotDeChoc).nidHome[1]);*/
 					}
 					
 					//j'ai pas d'infos et l'autre oui
-					if (nidHome[0] == null && (collidedAgent as BotTest).nidHome[0] != null) {
+					if (nidHome[0] == null && (collidedAgent as BotDeChoc).nidHome[0] != null) {
 						/*trace("moi info, l'autre non");
 						trace("AVANT");
 						trace("MES infos : coord " + nidHome[0], "timestamp " + nidHome[1]);
-						trace("SES infos : coord "+(collidedAgent as BotTest).nidHome[0], "timestamp "+(collidedAgent as BotTest).nidHome[1]);*/
-						nidHome[0] = (collidedAgent as BotTest).nidHome[0];
-						nidHome[1] = (collidedAgent as BotTest).nidHome[1];
+						trace("SES infos : coord "+(collidedAgent as BotDeChoc).nidHome[0], "timestamp "+(collidedAgent as BotDeChoc).nidHome[1]);*/
+						nidHome[0] = (collidedAgent as BotDeChoc).nidHome[0];
+						nidHome[1] = (collidedAgent as BotDeChoc).nidHome[1];
 						/*trace("APRES");
 						trace("moi info, l'autre non");
 						trace("MES infos : coord " + nidHome[0], "timestamp " + nidHome[1]);
-						trace("SES infos : coord "+(collidedAgent as BotTest).nidHome[0], "timestamp "+(collidedAgent as BotTest).nidHome[1]);*/
+						trace("SES infos : coord "+(collidedAgent as BotDeChoc).nidHome[0], "timestamp "+(collidedAgent as BotDeChoc).nidHome[1]);*/
 					}
 					
 					//on est tout les deux sans infos
-					if (nidHome[0] == null && (collidedAgent as BotTest).nidHome[0] == null) {
+					if (nidHome[0] == null && (collidedAgent as BotDeChoc).nidHome[0] == null) {
 						//trace("pas d'infos des 2 cotés");
 					}
 					
 					//On a tt les deux des infos, on détermine les plus récentes via le timestamp 
-					if (nidHome[0] != null && (collidedAgent as BotTest).nidHome[0] != null) {
-						if (nidHome[1] > (collidedAgent as BotTest).nidHome[1]) { //si j'ai un timestamp plus gros (donc plus récent) alors je transmet mes infos à l'autre
+					if (nidHome[0] != null && (collidedAgent as BotDeChoc).nidHome[0] != null) {
+						if (nidHome[1] > (collidedAgent as BotDeChoc).nidHome[1]) { //si j'ai un timestamp plus gros (donc plus récent) alors je transmet mes infos à l'autre
 							/*trace("AVANT");
 							trace("Moi OK, Autre NOK");
 							trace("MES infos : coord " + nidHome[0], "timestamp " + nidHome[1]);
-							trace("SES infos : coord "+(collidedAgent as BotTest).nidHome[0], "timestamp "+(collidedAgent as BotTest).nidHome[1]);*/
-							(collidedAgent as BotTest).nidHome[0] = nidHome[0]; // coord
-							(collidedAgent as BotTest).nidHome[1] = nidHome[1]; // timestamp
+							trace("SES infos : coord "+(collidedAgent as BotDeChoc).nidHome[0], "timestamp "+(collidedAgent as BotDeChoc).nidHome[1]);*/
+							(collidedAgent as BotDeChoc).nidHome[0] = nidHome[0]; // coord
+							(collidedAgent as BotDeChoc).nidHome[1] = nidHome[1]; // timestamp
 							/*trace("APRES");
 							trace("Moi OK, Autre NOK");
 							trace("MES infos : coord " + nidHome[0], "timestamp " + nidHome[1]);
-							trace("SES infos : coord "+(collidedAgent as BotTest).nidHome[0], "timestamp "+(collidedAgent as BotTest).nidHome[1]);*/
-						}else if (nidHome[1] < (collidedAgent as BotTest).nidHome[1]) {
+							trace("SES infos : coord "+(collidedAgent as BotDeChoc).nidHome[0], "timestamp "+(collidedAgent as BotDeChoc).nidHome[1]);*/
+						}else if (nidHome[1] < (collidedAgent as BotDeChoc).nidHome[1]) {
 							/*trace("AVANT");
 							trace("Moi NOK, Autre OK");
 							trace("MES infos : coord " + nidHome[0], "timestamp " + nidHome[1]);
-							trace("SES infos : coord "+(collidedAgent as BotTest).nidHome[0], "timestamp "+(collidedAgent as BotTest).nidHome[1]);*/
-							nidHome[0] = (collidedAgent as BotTest).nidHome[0]; // coord
-							nidHome[1] = (collidedAgent as BotTest).nidHome[1]; // timestamp
+							trace("SES infos : coord "+(collidedAgent as BotDeChoc).nidHome[0], "timestamp "+(collidedAgent as BotDeChoc).nidHome[1]);*/
+							nidHome[0] = (collidedAgent as BotDeChoc).nidHome[0]; // coord
+							nidHome[1] = (collidedAgent as BotDeChoc).nidHome[1]; // timestamp
 							/*trace("APRES");
 							trace("Moi NOK, Autre OK");
 							trace("MES infos : coord " + nidHome[0], "timestamp " + nidHome[1]);
-							trace("SES infos : coord "+(collidedAgent as BotTest).nidHome[0], "timestamp "+(collidedAgent as BotTest).nidHome[1]);*/
+							trace("SES infos : coord "+(collidedAgent as BotDeChoc).nidHome[0], "timestamp "+(collidedAgent as BotDeChoc).nidHome[1]);*/
 						}
 					}
-				// sinon c'est un bot adverse	
+					
+				// sinon c'est un bot adverse et on vole c'est ressource si on est a vide et lui non.	
 				}else {
 					if ((collidedAgent as Bot).HasResource()) {
 						if (!HasResource()) {
 							StealResource((collidedAgent as Bot))
 							SetResource(true);
-							trace("steal ressource");
 							if (nidHome[0] != null) {
 								if(HasResource()){
 									moveAt(nidHome[0]);
