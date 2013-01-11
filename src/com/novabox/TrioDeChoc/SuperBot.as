@@ -10,10 +10,7 @@ package com.novabox.TrioDeChoc
 	import com.novabox.MASwithTwoNests.World;
 	import flash.events.Event;
 	import flash.geom.Point;
-	/**
-	 * ...
-	 * @author ...
-	 */
+
 	public class SuperBot extends Bot
 	{	
 		protected var updateTime:Number = 0;
@@ -22,11 +19,6 @@ package com.novabox.TrioDeChoc
 		{
 			super(_type);
 			updateTime = 0;
-		}
-		
-		public function GetColor() : int
-		{
-			return color;
 		}
 		
 		override public function Update() : void

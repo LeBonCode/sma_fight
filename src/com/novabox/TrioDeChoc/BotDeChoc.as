@@ -1,5 +1,8 @@
 package com.novabox.TrioDeChoc 
 {
+	import flash.utils.Timer;
+	import flash.events.TimerEvent;
+	import flash.events.EventDispatcher;
 	import com.novabox.MASwithTwoNests.Agent;
 	import com.novabox.MASwithTwoNests.AgentCollideEvent;
 	import com.novabox.MASwithTwoNests.AgentType;
@@ -11,19 +14,27 @@ package com.novabox.TrioDeChoc
 	import com.novabox.MASwithTwoNests.Main;
 	import flash.events.Event;
 	import flash.geom.Point;
-	/**
-	 * ...
-	 * @author ...
-	 */
+
 	public class BotDeChoc extends SuperBot
 	{
-		public var unNidEnnemi : Array = new Array;  // [0] coord, [1] timestamp
+		public var unNidEnnemi : Array = new Array;     // [0] coord, [1] timestamp
 		public var nidHome : Array = new Array ();      // [0] coord, [1] timestamp
 		public var uneResource : Array = new Array ();  // [0] coord, [1] timestamp, [2] life
+		public var myTimer:Timer = new Timer(20000, 1); // Chrono pour le déclenchement de la défense (1:10s)
+		
+		public function timerListener (e:TimerEvent):void {
+			trace("DEFENSE DE LA BASE");
+			if (nidHome[0] != null) {
+				moveAt(nidHome[0]);
+			}
+		}
 		
 		public function BotDeChoc(_type:AgentType) 
 		{
 			super(_type);
+			// Lancement du Timer
+			myTimer.addEventListener(TimerEvent.TIMER, timerListener);
+			myTimer.start();
 		}
 		
 		override public function Update() : void {
@@ -42,7 +53,6 @@ package com.novabox.TrioDeChoc
 			if (targetPoint.x > World.WORLD_WIDTH) {
 				ChangeDirection();		
 			}
-			
 		}
 		
 		override public function onAgentCollide(_event:AgentCollideEvent) : void
@@ -50,6 +60,7 @@ package com.novabox.TrioDeChoc
 			var collidedAgent:Agent = _event.GetAgent();
 			
 			if (IsCollided(collidedAgent)) {
+				
 				//////////////////////////////////////////////////////////////
 				//                        COLLISION  						//	
 				//////////////////////////////////////////////////////////////
@@ -58,17 +69,20 @@ package com.novabox.TrioDeChoc
 				if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME) {
 					// Notre Nid 
 					if ((collidedAgent as BotHome).GetTeamId() == "TrioDeChoc" ) { 
+						
+						nidHome[0] = (collidedAgent as BotHome).GetTargetPoint();
+						nidHome[1] = new Date().time;
+						
 						if (HasResource()) {
 							(collidedAgent as BotHome).AddResource();
 							SetResource(false);
 						}
 						
-						nidHome[0] = (collidedAgent as BotHome).GetTargetPoint();
-						nidHome[1] = new Date().time;
-						
 						if (uneResource[0] != null) {
 							moveAt(uneResource[0]);
-						}else {
+						}else if (unNidEnnemi[0] != null) {
+							moveAt(unNidEnnemi[0]);
+						}else{	
 							ChangeDirection();
 						}
 					}else { 
@@ -76,20 +90,28 @@ package com.novabox.TrioDeChoc
 						unNidEnnemi[0] = (collidedAgent as BotHome).GetTargetPoint();
 						unNidEnnemi[1] = new Date().time;
 						
-						if (!HasResource())
+						if (!HasResource() && (collidedAgent as BotHome).HasResource())
 						{
-							if((collidedAgent as BotHome).HasResource()){
-								(collidedAgent as BotHome).TakeResource();
-								SetResource(true);
+							(collidedAgent as BotHome).TakeResource();
+							SetResource(true);
+							
+							if(nidHome[0] != null){
+								moveAt(nidHome[0]);
+							}else if (uneResource[0] != null) {
+								moveAt(uneResource[0]);
+							}else {
+								ChangeDirection();
 							}
-						}
-						
-						if(nidHome[0] != null){
-							moveAt(nidHome[0]);
-						}else if (uneResource[0] != null) {
-							moveAt(uneResource[0]);
+						}else if (!HasResource() && (collidedAgent as BotHome).HasResource() == false) {
+							if (uneResource[0] != null) {
+								moveAt(uneResource[0]);
+							}	
+						}else if (HasResource()) {
+							if(nidHome[0] != null){
+								moveAt(nidHome[0]);
+							}
 						}else {
-							ChangeDirection();
+							// trace("Bug impossible");
 						}
 					}
 				}
@@ -101,13 +123,6 @@ package com.novabox.TrioDeChoc
 						uneResource[0] = (collidedAgent as Resource).GetTargetPoint();
 						uneResource[1] = new Date().time;
 						uneResource[2] = (collidedAgent as Resource).GetLife();	
-						
-						// je reset mes infos ressources si la ressource n'a plus de vie
-						if (uneResource[2] == 0) { 
-							uneResource[0] = null;
-							uneResource[1] = null;
-							uneResource[2] = null;
-						}
 						
 						if(!HasResource()){
 							(collidedAgent as Resource).DecreaseLife();
@@ -166,7 +181,7 @@ package com.novabox.TrioDeChoc
 						unNidEnnemi[0] = (collidedAgent as BotHome).GetTargetPoint();
 						unNidEnnemi[1] = new Date().time;
 						
-						if (!HasResource()) {
+						if (!HasResource() && (collidedAgent as BotHome).HasResource()) {
 							moveAt(unNidEnnemi[0]);
 						}
 					}
@@ -182,14 +197,6 @@ package com.novabox.TrioDeChoc
 						
 						if (!HasResource()) {
 							moveAt(uneResource[0]);
-						}
-						
-						// je reset mes infos ressources si la ressource n'a plus de vie
-						if (uneResource[2] == 0) { 
-							uneResource[0] = null;
-							uneResource[1] = null;
-							uneResource[2] = null;
-							ChangeDirection();
 						}
 						
 						if (nidHome[0] != null) {

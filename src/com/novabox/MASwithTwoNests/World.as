@@ -53,17 +53,11 @@
 
 		public static const DUMMY_TEAM2:BotTeam = new BotTeam(	"Dummy 2",
 																0x00FF00,
-																new Array(DummyType.DummyBotType));
+																new Array(DummyType.DummyBotType));												
 																
 		public static const TRIODECHOC_TEAM:BotTeam = new BotTeam(	"TrioDeChoc",
 																0xDDAA22,
 																new Array(
-																	/*TrioDeChocType.BOT_VOLEUR_NID,
-																	TrioDeChocType.BOT_VOLEUR_AGENT,
-																	TrioDeChocType.BOT_SUIVEUR_RESOURCE,
-																	TrioDeChocType.BOT_SUIVEUR_NID_HOME,
-																	TrioDeChocType.BOT_EXPLORATEUR,
-																	TrioDeChocType.BOT_RECOLTEUR,*/
 																	TrioDeChocType.BOT_DE_CHOC
 																));
 
