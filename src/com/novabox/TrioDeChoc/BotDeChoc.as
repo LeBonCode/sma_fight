@@ -50,9 +50,14 @@ package com.novabox.TrioDeChoc
 			var collidedAgent:Agent = _event.GetAgent();
 			
 			if (IsCollided(collidedAgent)) {
+				//////////////////////////////////////////////////////////////
+				//                        COLLISION  						//	
+				//////////////////////////////////////////////////////////////
 				
+				/********************      BOT HOME      ********************/
 				if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME) {
-					if ((collidedAgent as BotHome).GetTeamId() == "TrioDeChoc" ) { //collision avec notre nid
+					// Notre Nid 
+					if ((collidedAgent as BotHome).GetTeamId() == "TrioDeChoc" ) { 
 						if (HasResource()) {
 							(collidedAgent as BotHome).AddResource();
 							SetResource(false);
@@ -66,7 +71,8 @@ package com.novabox.TrioDeChoc
 						}else {
 							ChangeDirection();
 						}
-					}else { //collision avec un nid ennemi
+					}else { 
+						//Nid Ennemi      
 						unNidEnnemi[0] = (collidedAgent as BotHome).GetTargetPoint();
 						unNidEnnemi[1] = new Date().time;
 						
@@ -88,7 +94,7 @@ package com.novabox.TrioDeChoc
 					}
 				}
 				
-				//collision avec une ressource
+				/********************      RESSOURCE     ********************/
 				if (collidedAgent.GetType() == AgentType.AGENT_RESOURCE) {
 					if ((collidedAgent as Resource).GetLife() > 0) {
 						
@@ -96,7 +102,8 @@ package com.novabox.TrioDeChoc
 						uneResource[1] = new Date().time;
 						uneResource[2] = (collidedAgent as Resource).GetLife();	
 						
-						if (uneResource[2] == 0) { // je reset mes infos ressources si la ressource n'a plus de vie
+						// je reset mes infos ressources si la ressource n'a plus de vie
+						if (uneResource[2] == 0) { 
 							uneResource[0] = null;
 							uneResource[1] = null;
 							uneResource[2] = null;
@@ -117,12 +124,13 @@ package com.novabox.TrioDeChoc
 					}
 				}
 				
-				//collision entre mes bots
+				/********************      BOT      ********************/
 				if ((collidedAgent as Bot) != null && (collidedAgent as Bot) != this) {
+					// BotDeChoc
 					if ((collidedAgent as Bot).GetTeamId() == "TrioDeChoc" ) { 
-						CommunicationEntreBots(collidedAgent);
-					// sinon c'est un bot adverse et on vole c'est ressource si on est a vide et lui non.	
+						CommunicationEntreBots(collidedAgent);	
 					}else {
+						// Bot Ennemi     
 						if ((collidedAgent as Bot).HasResource()) {
 							if (!HasResource()) {
 								StealResource((collidedAgent as Bot))
@@ -138,18 +146,23 @@ package com.novabox.TrioDeChoc
 						}
 					}
 				}
-			}else {//FIN COLLISION
-				//DEBUT PERCEPTION
+			}else {
+				//////////////////////////////////////////////////////////////
+				//                        PERCEPTION						//	
+				//////////////////////////////////////////////////////////////
+				
+				/********************      BOT HOME      ********************/
 				if (collidedAgent.GetType() == AgentType.AGENT_BOT_HOME) {
-					if ((collidedAgent as BotHome).GetTeamId() == "TrioDeChoc" ) { //perception avec notre nid
+					// Perception du nid
+					if ((collidedAgent as BotHome).GetTeamId() == "TrioDeChoc" ) { 
 						nidHome[0] = (collidedAgent as BotHome).GetTargetPoint();
 						nidHome[1] = new Date().time;
 						
 						if (HasResource()) {
 							moveAt(nidHome[0]);
 						}
-						
-					}else { //perception avec un nid ennemi
+					// Perception du nid ennemi	
+					}else { 
 						unNidEnnemi[0] = (collidedAgent as BotHome).GetTargetPoint();
 						unNidEnnemi[1] = new Date().time;
 						
@@ -159,7 +172,7 @@ package com.novabox.TrioDeChoc
 					}
 				}
 				
-				//perception avec une ressource
+				/********************      RESSOURCE     ********************/
 				if (collidedAgent.GetType() == AgentType.AGENT_RESOURCE) {
 					if ((collidedAgent as Resource).GetLife() > 0) {
 					
@@ -172,12 +185,12 @@ package com.novabox.TrioDeChoc
 						}
 						
 						// je reset mes infos ressources si la ressource n'a plus de vie
-						/*if (uneResource[2] == 0) { 
+						if (uneResource[2] == 0) { 
 							uneResource[0] = null;
 							uneResource[1] = null;
 							uneResource[2] = null;
 							ChangeDirection();
-						}*/	
+						}
 						
 						if (nidHome[0] != null) {
 							if(HasResource()){
@@ -189,13 +202,14 @@ package com.novabox.TrioDeChoc
 					}
 				}
 				
-				//perception entre mes bots
+				/********************      BOT      ********************/
 				if ((collidedAgent as Bot) != null && (collidedAgent as Bot) != this) {
+					// BotDeChoc
 					if ((collidedAgent as Bot).GetTeamId() == "TrioDeChoc" ) { 
 						CommunicationEntreBots(collidedAgent);
-					}else {//perception bots ennemis
-						if (!HasResource())
-							if((collidedAgent as Bot).HasResource()){
+					}else {
+						// Bot ennemi
+						if (!HasResource() && (collidedAgent as Bot).HasResource()){
 							moveAt((collidedAgent as Bot).GetTargetPoint());
 						}
 					}
@@ -205,8 +219,7 @@ package com.novabox.TrioDeChoc
 		}
 		
 		private function CommunicationEntreBots(collidedAgent:Agent):void 
-		{
-			//Communication entre mes agents	
+		{	
 			//COMMUNICATION NID HOME
 			//j'ai des infos et l'autre non
 			if (nidHome[0] != null && (collidedAgent as BotDeChoc).nidHome[0] == null) {
